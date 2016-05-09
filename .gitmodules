@@ -1,0 +1,6 @@
+[submodule "vim-plug"]
+	path = vim-plug
+	url = https://github.com/junegunn/vim-plug.git
+[submodule "roscpp_code_format"]
+	path = roscpp_code_format
+	url = https://github.com/pazeshun/roscpp_code_format.git
