@@ -1,4 +1,8 @@
+#!/bin/sh
+
 # For Euslisp readline
-alias eusgl='rlwrap eusgl'
-alias irteusgl='rlwrap irteusgl'
-alias roseus='rlwrap roseus'
+if [ -z $INSIDE_EMACS ] && [ $TERM != "dumb" ]; then
+  alias eusgl='rlwrap eusgl'
+  alias irteusgl='rlwrap irteusgl'
+  alias roseus='rlwrap roseus'
+fi
