@@ -151,7 +151,3 @@ echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
-
-# disable hardware acceleration about Mesa graphics drivers
-# to run RViz and Gazebo
-#export LIBGL_ALWAYS_SOFTWARE=1
