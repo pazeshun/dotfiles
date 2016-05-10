@@ -3,8 +3,8 @@
 # get path
 DOT_DIRECTORY=$(cd $(dirname $0) && pwd)
 
-# dotfiles name
-dotfiles_name=(bashrc gitconfig vim vimrc bash_aliases emacs.d)
+# Include src_to_dest
+. ${DOT_DIRECTORY}/src_to_dest.sh
 
 # function to rename dotfiles for them not to be removed
 rename_dotfiles () {
@@ -15,13 +15,10 @@ rename_dotfiles () {
   fi
 }
 
-# dotfiles in top directory
-for f in ${dotfiles_name[@]}
+# Create symbolic links
+for str in "${src_to_dest[@]}"
 do
-  rename_dotfiles .${f}
-  ln -snv ${DOT_DIRECTORY}/${f} ~/.${f}
+  ary=(`echo ${str}`)
+  rename_dotfiles ${ary[1]}
+  ln -snv ${DOT_DIRECTORY}/${ary[0]} ~/${ary[1]}
 done
-
-# .clang_format
-rename_dotfiles .clang-format
-ln -snv ${DOT_DIRECTORY}/roscpp_code_format/.clang-format ~/.clang-format
