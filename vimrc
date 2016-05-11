@@ -28,6 +28,8 @@ Plug 'https://github.com/rhysd/vim-clang-format.git'
 Plug 'https://github.com/kannokanno/previm.git'
 "open-browser.vim
 Plug 'https://github.com/tyru/open-browser.vim.git'
+"conque.vim
+Plug 'https://github.com/pazeshun/conque.vim.git'
 call plug#end()
 
 "vim-clang-format
