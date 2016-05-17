@@ -8,3 +8,6 @@ INSTALL_DIRECTORY=$(cd $(dirname $0) && pwd)
 
 # Install clang-format
 sudo apt-get install clang-format-3.6
+
+# Install ROS
+. ${INSTALL_DIRECTORY}/install_ros.sh
