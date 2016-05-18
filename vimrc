@@ -35,7 +35,7 @@ call plug#end()
 "vim-clang-format
 let g:clang_format#command = "clang-format-3.6"
 let g:clang_format#detect_style_file = 1
-autocmd FileType c,cpp map = <Plug>(operator-clang-format)
+autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 
 autocmd FileType cpp setl cindent
 autocmd FileType cpp setl cinoptions=i-s,N-s,g0
