@@ -1,3 +1,4 @@
+" Indent and tab settings
 set smartindent
 set shiftwidth=2
 set tabstop=2
@@ -5,57 +6,70 @@ set softtabstop=2
 set expandtab
 set smarttab
 filetype plugin indent on
+
+" Encoding settings
+set encoding=utf-8
+set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
+
+" Other basic settings
 set number
 "set clipboard=unnamed
 set incsearch
 set whichwrap=<,>,[,]
-set encoding=utf-8
-set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 
-"visualize tab and white space of EOL
+" Visualize tab and white space of EOL
 set list
 set listchars=tab:>-,trail:-
 
-"vim-plug
+" Plugins managed by vim-plug
 call plug#begin('~/.vim/plugged')
-"vim-ros
+"" vim-ros
 Plug 'https://github.com/taketwo/vim-ros.git'
-"vim-operator-user
+"" vim-operator-user
 Plug 'https://github.com/kana/vim-operator-user.git'
-"vim-clang-format
+"" vim-clang-format
 Plug 'https://github.com/rhysd/vim-clang-format.git'
-"previm
+"" previm
 Plug 'https://github.com/kannokanno/previm.git'
-"open-browser.vim
+"" open-browser.vim
 Plug 'https://github.com/tyru/open-browser.vim.git'
-"conque.vim
+"" conque.vim
 Plug 'https://github.com/pazeshun/conque.vim.git'
 call plug#end()
 
-"vim-clang-format
+" Color scheme
+syntax on
+colorscheme peachpuff
+
+" Settings for vim-clang-format
 let g:clang_format#command = "clang-format-3.6"
 let g:clang_format#detect_style_file = 1
 autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 
-"Completion in conque for lisp
+" Settings for conque.vim
+"" Completion in conque for Lisp
 autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
 autocmd FileType conque_term inoremap <buffer> <S-tab> <C-p>
 autocmd FileType conque_term imap <buffer> <F8> <Esc>lve<F9>
-"Show matching brace in conque for lisp
+"" Show matching brace in conque for Lisp
 autocmd FileType conque_term setl showmatch
 
+" Settings for C/C++
 autocmd FileType c,cpp setl cindent
 autocmd FileType cpp setl cinoptions=i-s,N-s,g0
 
+" Settings for Python
 autocmd FileType python setl autoindent
 autocmd FileType python setl smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 "autocmd FileType python setl nocindent
 
+" Settings for Lisp
 let g:lisp_rainbow = 1
 autocmd FileType lisp setl nocindent
 autocmd FileType lisp setl lisp
 autocmd FileType lisp setl showmatch
 autocmd FileType lisp setl tabstop=8 expandtab shiftwidth=2 softtabstop=2
 
+" Settings for Makefile
 autocmd FileType make setl noexpandtab
