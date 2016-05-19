@@ -15,6 +15,7 @@ set fileencodings=iso-2022-jp,cp932,sjis,euc-jp,utf-8
 set number
 "set clipboard=unnamed
 set incsearch
+nnoremap <F5> :set hlsearch!<CR>
 set whichwrap=<,>,[,]
 
 " Visualize tab and white space of EOL
