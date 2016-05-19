@@ -37,6 +37,11 @@ let g:clang_format#command = "clang-format-3.6"
 let g:clang_format#detect_style_file = 1
 autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 
+"Completion in conque for lisp
+autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
+autocmd FileType conque_term inoremap <buffer> <S-tab> <C-p>
+autocmd FileType conque_term imap <buffer> <F8> <Esc>lve<F9>
+
 autocmd FileType c,cpp setl cindent
 autocmd FileType cpp setl cinoptions=i-s,N-s,g0
 
