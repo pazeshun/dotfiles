@@ -113,6 +113,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# Change to Xterm 256color mode for VIM
+export TERM=xterm-256color
+
 # ROS setup
 export TURTLEBOT_3D_SENSOR=kinect
 source /opt/ros/indigo/setup.bash

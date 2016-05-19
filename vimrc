@@ -35,11 +35,33 @@ Plug 'https://github.com/kannokanno/previm.git'
 Plug 'https://github.com/tyru/open-browser.vim.git'
 "" conque.vim
 Plug 'https://github.com/pazeshun/conque.vim.git'
+"" fugitive.vim
+Plug 'https://github.com/tpope/vim-fugitive.git'
+"" lightline.vim
+Plug 'https://github.com/itchyny/lightline.vim.git'
 call plug#end()
 
 " Color scheme
 syntax on
 colorscheme peachpuff
+
+" Settings for lightline.vim
+set laststatus=2
+if !has('gui_running')
+  set t_Co=256
+endif
+let g:lightline ={
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'fugitive': '%{exists("*fugitive#head")?fugitive#head():""}'
+      \ },
+      \ 'component_visible_condition': {
+      \   'fugitive': '(exists("*fugitive#head") && ""!=fugitive#head())'
+      \ }
+      \ }
 
 " Settings for vim-clang-format
 let g:clang_format#command = "clang-format-3.6"
