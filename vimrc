@@ -73,7 +73,16 @@ autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 "" Completion in conque for Lisp
 autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
 autocmd FileType conque_term inoremap <buffer> <S-tab> <C-p>
-autocmd FileType conque_term imap <buffer> <F8> <Esc>lve<F9>
+autocmd FileType conque_term imap <silent> <buffer> <F8> <Esc>:<C-u>call <SID>SendCompletionToConque()<CR>
+function! s:SendCompletionToConque()
+  " Get most recent/relevant terminal
+  let term = conque_term#get_instance()
+  " Go to terminal buffer
+  call term.focus()
+  " Send Completion text
+  call term.write(@.)
+endfunction
+
 "" Show matching brace in conque for Lisp
 autocmd FileType conque_term setl showmatch
 
