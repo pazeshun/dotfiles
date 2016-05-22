@@ -8,4 +8,5 @@ src_to_dest=(
 "bash_aliases .bash_aliases"
 "emacs.d .emacs.d"
 "roscpp_code_format/.clang-format .clang-format"
+"percol.d .percol.d"
 )
