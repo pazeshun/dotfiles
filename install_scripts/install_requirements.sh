@@ -11,6 +11,7 @@ sudo apt-get install clang-format-3.6
 
 # Install python tools
 sudo apt-get install python-pip
+sudo pip install pip --upgrade
 sudo pip install percol
 
 # Install ROS
