@@ -112,6 +112,11 @@ autocmd FileType conque_term nnoremap <silent> <buffer> i :<C-u>call <SID>MoveIn
 
 "" To delete chars from normal mode in conque(only in Linux)
 function! s:EraceCharsInConque(head, tail)
+  let line = line(".")
+  call cursor(line, a:head)
+  normal! ma
+  call cursor(line, a:tail)
+  normal! y`a
   call <SID>MoveInsertCursor(a:tail)
   let i = 0
   while i < (a:tail - a:head)
