@@ -83,6 +83,10 @@ function! s:SendCompletionToConque()
   call term.write(@.)
 endfunction
 
+"" Prevent undo/redo
+autocmd FileType conque_term nnoremap <silent> <buffer> u <Nop>
+autocmd FileType conque_term nnoremap <silent> <buffer> <C-r> <Nop>
+
 "" To insert in the cursor position
 autocmd FileType conque_term inoremap <silent> <buffer> <Esc> <Esc>:let b:insert_pos = col(".") + 1<CR>
 function! s:MoveInsertCursor(col)
