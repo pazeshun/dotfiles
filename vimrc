@@ -73,7 +73,7 @@ autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 "" Completion in conque for Lisp
 autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
 autocmd FileType conque_term inoremap <buffer> <S-tab> <C-p>
-autocmd FileType conque_term imap <silent> <buffer> <F8> <Esc>:<C-u>call <SID>SendCompletionToConque()<CR>
+autocmd FileType conque_term inoremap <silent> <buffer> <F8> <Esc>:<C-u>call <SID>SendCompletionToConque()<CR>
 function! s:SendCompletionToConque()
   " Get most recent/relevant terminal
   let term = conque_term#get_instance()
@@ -81,6 +81,69 @@ function! s:SendCompletionToConque()
   call term.focus()
   " Send Completion text
   call term.write(@.)
+endfunction
+
+"" To insert in the cursor position
+autocmd FileType conque_term inoremap <silent> <buffer> <Esc> <Esc>:let b:insert_pos = col(".") + 1<CR>
+function! s:MoveInsertCursor(col)
+  let move_c = b:insert_pos - a:col
+  let i = 0
+  if move_c >= 0
+    while i < move_c
+      " Enter <Left>
+      sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[D"))'
+      let i += 1
+    endwhile
+  else
+    let move_c = -move_c
+    while i < move_c
+      " Enter <Right>
+      sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[C"))'
+      let i += 1
+    endwhile
+  endif
+  let b:insert_pos = a:col
+endfunction
+autocmd FileType conque_term nnoremap <silent> <buffer> i :<C-u>call <SID>MoveInsertCursor(col("."))<CR>i
+
+"" To delete chars from normal mode in conque(only in Linux)
+function! s:EraceCharsInConque(head, tail)
+  call <SID>MoveInsertCursor(a:tail)
+  let i = 0
+  while i < (a:tail - a:head)
+    " Enter <BS>
+    sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x08"))'
+    let i += 1
+    let b:insert_pos -= 1
+  endwhile
+endfunction
+""" x in normal mode
+autocmd FileType conque_term nmap <silent> <buffer> x :<C-u>call <SID>EraceCharOnCursorInConque()<CR>
+function! s:EraceCharOnCursorInConque()
+  let head = col(".")
+  let tail = head + 1
+  call <SID>EraceCharsInConque(head, tail)
+endfunction
+""" X in normal mode
+autocmd FileType conque_term nmap <silent> <buffer> X :<C-u>call <SID>EraceCharLeftCursorInConque()<CR>
+function! s:EraceCharLeftCursorInConque()
+  let tail = col(".")
+  let head = tail - 1
+  call <SID>EraceCharsInConque(head, tail)
+endfunction
+""" dw and de in normal mode
+autocmd FileType conque_term nmap <silent> <buffer> dw :<C-u>call <SID>EraceOneWordInConque(1)<CR>
+autocmd FileType conque_term nmap <silent> <buffer> de :<C-u>call <SID>EraceOneWordInConque(0)<CR>
+function! s:EraceOneWordInConque(with_space)
+  let head = col(".")
+  if a:with_space
+    normal! w
+    let tail = col(".")
+  else
+    normal! e
+    let tail = col(".") + 1
+  endif
+  call <SID>EraceCharsInConque(head, tail)
 endfunction
 
 "" Show matching brace in conque for Lisp
