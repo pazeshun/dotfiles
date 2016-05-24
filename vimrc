@@ -87,7 +87,7 @@ endfunction
 autocmd FileType conque_term nnoremap <silent> <buffer> u <Nop>
 autocmd FileType conque_term nnoremap <silent> <buffer> <C-r> <Nop>
 
-"" To insert in the cursor position
+"" To insert in the cursor position(only in Linux)
 autocmd FileType conque_term inoremap <silent> <buffer> <Esc> <Esc>:let b:insert_pos = col(".") + 1<CR>
 function! s:MoveInsertCursor(col)
   let move_c = b:insert_pos - a:col
@@ -110,7 +110,7 @@ function! s:MoveInsertCursor(col)
 endfunction
 autocmd FileType conque_term nnoremap <silent> <buffer> i :<C-u>call <SID>MoveInsertCursor(col("."))<CR>i
 
-"" To delete chars from normal mode in conque(only in Linux)
+"" To delete chars from normal and visual mode in conque(only in Linux)
 function! s:EraceCharsInConque(head, tail)
   let line = line(".")
   call cursor(line, a:head)
@@ -152,6 +152,15 @@ function! s:EraceOneWordInConque(with_space)
     normal! e
     let tail = col(".") + 1
   endif
+  call <SID>EraceCharsInConque(head, tail)
+endfunction
+""" d in visual mode
+autocmd FileType conque_term vmap <silent> <buffer> d :<C-u>call <SID>EraceSelectedCharsInConque()<CR>
+function! s:EraceSelectedCharsInConque()
+  normal! `<
+  let head = col(".")
+  normal! `>
+  let tail = col(".") + 1
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 
