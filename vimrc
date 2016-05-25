@@ -173,7 +173,21 @@ endfunction
 autocmd FileType conque_term nmap <silent> <buffer> d$ :<C-u>call <SID>EraceToEndInConque()<CR>
 function! s:EraceToEndInConque()
   let head = getpos(".")
-  normal! $
+  normal! G$
+  if getline(".")[col(".") - 1] == " "
+    normal! h
+    let tail = getpos(".")
+  else
+    let tail = getpos(".")
+  endif
+  call <SID>EraceCharsInConque(head, tail)
+endfunction
+""" dd in normal mode
+autocmd FileType conque_term nmap <silent> <buffer> dd :<C-u>call <SID>EraceOneLineInConque()<CR>
+function! s:EraceOneLineInConque()
+  sil exe "normal! ?$ \<cr>ll"
+  let head = getpos(".")
+  normal! G$
   if getline(".")[col(".") - 1] == " "
     normal! h
     let tail = getpos(".")
