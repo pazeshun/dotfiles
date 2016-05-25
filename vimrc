@@ -154,6 +154,14 @@ function! s:EraceOneWordInConque(with_space)
   endif
   call <SID>EraceCharsInConque(head, tail)
 endfunction
+""" d$ in normal mode
+autocmd FileType conque_term nmap <silent> <buffer> d$ :<C-u>call <SID>EraceToEndInConque()<CR>
+function! s:EraceToEndInConque()
+  let head = col(".")
+  normal! $
+  let tail = col(".")
+  call <SID>EraceCharsInConque(head, tail)
+endfunction
 """ d in visual mode
 autocmd FileType conque_term vmap <silent> <buffer> d :<C-u>call <SID>EraceSelectedCharsInConque()<CR>
 function! s:EraceSelectedCharsInConque()
