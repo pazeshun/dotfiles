@@ -87,7 +87,7 @@ endfunction
 autocmd FileType conque_term nnoremap <silent> <buffer> u <Nop>
 autocmd FileType conque_term nnoremap <silent> <buffer> <C-r> <Nop>
 
-"" To insert in the cursor position(only in Linux)
+"" To insert(only in Linux)
 autocmd FileType conque_term setl whichwrap+=h,l
 function! s:CountPosDiff(from, to)
   " Get window width
@@ -121,6 +121,9 @@ function! s:MoveInsertCursor(pos)
   let b:insert_pos = a:pos
 endfunction
 autocmd FileType conque_term nnoremap <silent> <buffer> i :<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>i
+autocmd FileType conque_term nnoremap <silent> <buffer> a l:<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>i
+autocmd FileType conque_term nnoremap <silent> <buffer> I ?$ <CR>ll:<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>i
+autocmd FileType conque_term nnoremap <silent> <buffer> A G$:<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>i
 
 "" To delete chars from normal and visual mode in conque(only in Linux)
 function! s:EraceCharsInConque(head, tail)
