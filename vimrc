@@ -70,6 +70,7 @@ let g:clang_format#detect_style_file = 1
 autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 
 " Settings for conque.vim
+let g:ConqueTerm_Color = 2
 "" Completion in conque for Lisp
 autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
 autocmd FileType conque_term inoremap <buffer> <S-tab> <C-p>
