@@ -88,87 +88,107 @@ autocmd FileType conque_term nnoremap <silent> <buffer> u <Nop>
 autocmd FileType conque_term nnoremap <silent> <buffer> <C-r> <Nop>
 
 "" To insert in the cursor position(only in Linux)
-autocmd FileType conque_term inoremap <silent> <buffer> <Esc> <Esc>:let b:insert_pos = col(".") + 1<CR>
-function! s:MoveInsertCursor(col)
-  let move_c = b:insert_pos - a:col
+autocmd FileType conque_term setl whichwrap+=h,l
+function! s:CountPosDiff(from, to)
+  " Get window width
+  let npos = getpos(".")
+  let virtualedit_bak = &l:virtualedit
+  let &l:virtualedit = "all"
+  normal! g$
+  let win_width = virtcol(".")
+  let &l:virtualedit = virtualedit_bak
+  call setpos(".", npos)
+  return (a:to[1] - a:from[1]) * win_width + a:to[2] - a:from[2]
+endfunction
+autocmd FileType conque_term inoremap <silent> <buffer> <Esc> <Esc>l:let b:insert_pos = getpos(".")<CR>h
+function! s:MoveInsertCursor(pos)
+  let move_c = <SID>CountPosDiff(b:insert_pos, a:pos)
   let i = 0
   if move_c >= 0
-    while i < move_c
-      " Enter <Left>
-      sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[D"))'
-      let i += 1
-    endwhile
-  else
-    let move_c = -move_c
     while i < move_c
       " Enter <Right>
       sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[C"))'
       let i += 1
     endwhile
+  else
+    let move_c = -move_c
+    while i < move_c
+      " Enter <Left>
+      sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[D"))'
+      let i += 1
+    endwhile
   endif
-  let b:insert_pos = a:col
+  let b:insert_pos = a:pos
 endfunction
-autocmd FileType conque_term nnoremap <silent> <buffer> i :<C-u>call <SID>MoveInsertCursor(col("."))<CR>i
+autocmd FileType conque_term nnoremap <silent> <buffer> i :<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>i
 
 "" To delete chars from normal and visual mode in conque(only in Linux)
 function! s:EraceCharsInConque(head, tail)
-  let line = line(".")
-  call cursor(line, a:head)
+  call setpos(".", a:head)
   normal! ma
-  call cursor(line, a:tail)
+  call setpos(".", a:tail)
+  normal! l
+  let tail_r = getpos(".")
   normal! y`a
-  call <SID>MoveInsertCursor(a:tail)
+  call <SID>MoveInsertCursor(tail_r)
   let i = 0
-  while i < (a:tail - a:head)
+  let char_num = <SID>CountPosDiff(a:head, tail_r)
+  while i < char_num
     " Enter <BS>
     sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x08"))'
     let i += 1
-    let b:insert_pos -= 1
   endwhile
+  let b:insert_pos = a:head
 endfunction
 """ x in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> x :<C-u>call <SID>EraceCharOnCursorInConque()<CR>
 function! s:EraceCharOnCursorInConque()
-  let head = col(".")
-  let tail = head + 1
+  let head = getpos(".")
+  let tail = head
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 """ X in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> X :<C-u>call <SID>EraceCharLeftCursorInConque()<CR>
 function! s:EraceCharLeftCursorInConque()
-  let tail = col(".")
-  let head = tail - 1
+  normal! h
+  let head = getpos(".")
+  let tail = head
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 """ dw and de in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> dw :<C-u>call <SID>EraceOneWordInConque(1)<CR>
 autocmd FileType conque_term nmap <silent> <buffer> de :<C-u>call <SID>EraceOneWordInConque(0)<CR>
 function! s:EraceOneWordInConque(with_space)
-  let head = col(".")
+  let head = getpos(".")
   if a:with_space
-    normal! w
-    let tail = col(".")
+    normal! wh
+    let tail = getpos(".")
   else
     normal! e
-    let tail = col(".") + 1
+    let tail = getpos(".")
   endif
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 """ d$ in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> d$ :<C-u>call <SID>EraceToEndInConque()<CR>
 function! s:EraceToEndInConque()
-  let head = col(".")
+  let head = getpos(".")
   normal! $
-  let tail = col(".")
+  if getline(".")[col(".") - 1] == " "
+    normal! h
+    let tail = getpos(".")
+  else
+    let tail = getpos(".")
+  endif
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 """ d in visual mode
 autocmd FileType conque_term vmap <silent> <buffer> d :<C-u>call <SID>EraceSelectedCharsInConque()<CR>
 function! s:EraceSelectedCharsInConque()
   normal! `<
-  let head = col(".")
+  let head = getpos(".")
   normal! `>
-  let tail = col(".") + 1
+  let tail = getpos(".")
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 
