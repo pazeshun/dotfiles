@@ -9,6 +9,9 @@ INSTALL_DIRECTORY=$(cd $(dirname $0) && pwd)
 # Install clang-format
 sudo apt-get install clang-format-3.6
 
+# Install rlwrap
+sudo apt-get install rlwrap
+
 # Install python tools
 sudo apt-get install python-pip
 sudo pip install pip --upgrade
