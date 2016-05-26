@@ -213,6 +213,9 @@ endfunction
 "" Show matching brace in conque for Lisp
 autocmd FileType conque_term setl showmatch
 
+"" Command to redraw Eus command line in conque
+autocmd FileType conque_term inoremap <F5> <Esc>:tabnew<CR>gtgt:q<CR>i
+
 " Settings for C/C++
 autocmd FileType c,cpp setl cindent
 autocmd FileType cpp setl cinoptions=i-s,N-s,g0
