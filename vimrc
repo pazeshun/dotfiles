@@ -22,6 +22,11 @@ set whichwrap=<,>,[,]
 set list
 set listchars=tab:>-,trail:-
 
+" DiffOrig command
+if !exists(":DiffOrig")
+  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
+endif
+
 " Plugins managed by vim-plug
 call plug#begin('~/.vim/plugged')
 "" vim-ros
