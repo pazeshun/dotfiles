@@ -27,6 +27,9 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif
 
+" Netrw setting
+let g:netrw_keepdir = 0
+
 " Plugins managed by vim-plug
 call plug#begin('~/.vim/plugged')
 "" vim-ros
