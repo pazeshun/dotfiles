@@ -27,9 +27,6 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif
 
-" diff setting
-set diffopt+=vertical
-
 " Plugins managed by vim-plug
 call plug#begin('~/.vim/plugged')
 "" vim-ros
@@ -53,6 +50,14 @@ call plug#end()
 " Color scheme
 syntax on
 colorscheme peachpuff
+
+" diff settings
+set diffopt+=vertical
+"" Change highlight colors
+highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=22
+highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
+highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
+highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 
 " Settings for lightline.vim
 set laststatus=2
