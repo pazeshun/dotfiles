@@ -43,7 +43,7 @@ Plug 'https://github.com/kannokanno/previm.git'
 "" open-browser.vim
 Plug 'https://github.com/tyru/open-browser.vim.git'
 "" conque.vim
-Plug 'https://github.com/pazeshun/conque.vim.git'
+Plug 'https://github.com/pazeshun/conque.vim.git', { 'branch': 'pazeshun' }
 "" fugitive.vim
 Plug 'https://github.com/tpope/vim-fugitive.git'
 "" lightline.vim
@@ -90,7 +90,6 @@ let g:ConqueTerm_Color = 2
 "let g:ConqueTerm_ReadUnfocused = 1
 "" Completion in conque for Lisp
 autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
-autocmd FileType conque_term inoremap <buffer> <S-tab> <C-p>
 autocmd FileType conque_term inoremap <silent> <buffer> <F8> <Esc>:<C-u>call <SID>SendCompletionToConque()<CR>
 function! s:SendCompletionToConque()
   " Get most recent/relevant terminal
@@ -231,8 +230,8 @@ endfunction
 autocmd FileType conque_term setl showmatch
 
 "" Command to redraw Eus command line in conque
-autocmd FileType conque_term imap <F5> <C-p><C-n>
-autocmd FileType conque_term nmap <F5> i<C-p><C-n><Esc>
+"autocmd FileType conque_term imap <F5> <C-p><C-n>
+"autocmd FileType conque_term nmap <F5> i<C-p><C-n><Esc>
 
 " Settings for C/C++
 autocmd FileType c,cpp setl cindent
