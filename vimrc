@@ -94,7 +94,15 @@ let g:ConqueTerm_Color = 2
 "let g:ConqueTerm_ReadUnfocused = 1
 "" Completion in conque for Lisp
 autocmd FileType conque_term setl iskeyword=38,42,43,45,47-58,60-62,64-90,97-122,_,+,-,*,/,%,<,=,>,:,$,?,!,@-@,94
-autocmd FileType conque_term inoremap <silent> <buffer> <F8> <Esc>:<C-u>call <SID>SendCompletionToConque()<CR>
+autocmd FileType conque_term setl completeopt+=menuone
+autocmd FileType conque_term inoremap <expr> <buffer> <C-p> pumvisible() ? "\<Up>" : "\<C-p><C-n>"
+autocmd FileType conque_term inoremap <expr> <buffer> <C-n> pumvisible() ? "\<Down>" : "\<C-p><C-n>"
+autocmd FileType conque_term inoremap <expr> <silent> <buffer> <C-y> pumvisible() ?
+      \ "\<C-p><C-n><Esc>:<C-u>call <SID>SendCompletionToConque()<CR>" :
+      \ ('<C-o>:py ' . b:ConqueTerm_Var . '.write_ord(25)<CR>')
+autocmd FileType conque_term inoremap <expr> <silent> <buffer> <C-e> pumvisible() ?
+      \ "\<C-e>" :
+      \ ('<C-o>:py ' . b:ConqueTerm_Var . '.write_ord(5)<CR>')
 function! s:SendCompletionToConque()
   " Get most recent/relevant terminal
   let term = conque_term#get_instance()
