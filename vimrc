@@ -62,6 +62,10 @@ highlight DiffDelete cterm=bold ctermfg=10 ctermbg=52
 highlight DiffChange cterm=bold ctermfg=10 ctermbg=17
 highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 
+" Popup menu settings
+highlight PmenuSel ctermfg=255 ctermbg=2
+highlight PmenuThumb ctermbg=2
+
 " Settings for lightline.vim
 set laststatus=2
 if !has('gui_running')
