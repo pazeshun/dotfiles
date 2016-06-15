@@ -242,8 +242,8 @@ endfunction
 autocmd FileType conque_term setl showmatch
 
 "" Command to redraw Eus command line in conque
-"autocmd FileType conque_term imap <F5> <C-p><C-n>
-"autocmd FileType conque_term nmap <F5> i<C-p><C-n><Esc>
+autocmd FileType conque_term imap <F5> <Up><Down>
+autocmd FileType conque_term nmap <F5> i<Up><Down><Esc>
 
 " Settings for C/C++
 autocmd FileType c,cpp setl cindent
