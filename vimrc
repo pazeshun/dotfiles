@@ -238,6 +238,12 @@ function! s:EraceSelectedCharsInConque()
   call <SID>EraceCharsInConque(head, tail)
 endfunction
 
+"" To paste chars from normal mode in conque(only in Linux)
+autocmd FileType conque_term nnoremap <expr> <silent> <buffer> P ':<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>:py '
+      \ . b:ConqueTerm_Var . '.write_expr("@@")<CR>:let b:insert_pos = getpos(".")<CR>'
+autocmd FileType conque_term nnoremap <expr> <silent> <buffer> p 'l:<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>:py '
+      \ . b:ConqueTerm_Var . '.write_expr("@@")<CR>:let b:insert_pos = getpos(".")<CR>'
+
 "" Show matching brace in conque for Lisp
 autocmd FileType conque_term setl showmatch
 
