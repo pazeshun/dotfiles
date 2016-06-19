@@ -116,6 +116,19 @@ endfunction
 autocmd FileType conque_term nnoremap <silent> <buffer> u <Nop>
 autocmd FileType conque_term nnoremap <silent> <buffer> <C-r> <Nop>
 
+"" Command to redraw command line in conque
+autocmd FileType conque_term imap <silent> <buffer> <F5> <Esc>l:<C-u>call <SID>RedrawCommandLineInConque()<CR>i
+autocmd FileType conque_term nmap <silent> <buffer> <F5> :<C-u>call <SID>RedrawCommandLineInConque()<CR>
+function! s:RedrawCommandLineInConque()
+  let l:before_update_pos = getpos(".")
+  " Enter <Up>
+  sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[A"))'
+  " Enter <Down>
+  sil exe ':py ' . b:ConqueTerm_Var . '.write(u("\x1b[B"))'
+  let b:insert_pos = getpos(".")
+  call <SID>MoveInsertCursor(l:before_update_pos)
+endfunction
+
 "" To insert(only in Linux)
 autocmd FileType conque_term setl whichwrap+=h,l
 function! s:CountPosDiff(from, to)
@@ -171,10 +184,12 @@ function! s:EraceCharsInConque(head, tail)
     let i += 1
   endwhile
   let b:insert_pos = a:head
+  call <SID>RedrawCommandLineInConque()
 endfunction
 """ x in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> x :<C-u>call <SID>EraceCharOnCursorInConque()<CR>
 function! s:EraceCharOnCursorInConque()
+  call <SID>RedrawCommandLineInConque()
   let head = getpos(".")
   let tail = head
   call <SID>EraceCharsInConque(head, tail)
@@ -182,6 +197,7 @@ endfunction
 """ X in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> X :<C-u>call <SID>EraceCharLeftCursorInConque()<CR>
 function! s:EraceCharLeftCursorInConque()
+  call <SID>RedrawCommandLineInConque()
   normal! h
   let head = getpos(".")
   let tail = head
@@ -191,6 +207,7 @@ endfunction
 autocmd FileType conque_term nmap <silent> <buffer> dw :<C-u>call <SID>EraceOneWordInConque(1)<CR>
 autocmd FileType conque_term nmap <silent> <buffer> de :<C-u>call <SID>EraceOneWordInConque(0)<CR>
 function! s:EraceOneWordInConque(with_space)
+  call <SID>RedrawCommandLineInConque()
   let head = getpos(".")
   if a:with_space
     normal! wh
@@ -204,6 +221,7 @@ endfunction
 """ d$ in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> d$ :<C-u>call <SID>EraceToEndInConque()<CR>
 function! s:EraceToEndInConque()
+  call <SID>RedrawCommandLineInConque()
   let head = getpos(".")
   normal! G$
   if getline(".")[col(".") - 1] == " "
@@ -217,6 +235,7 @@ endfunction
 """ dd in normal mode
 autocmd FileType conque_term nmap <silent> <buffer> dd :<C-u>call <SID>EraceOneLineInConque()<CR>
 function! s:EraceOneLineInConque()
+  call <SID>RedrawCommandLineInConque()
   sil exe "normal! ?$ \<cr>ll"
   let head = getpos(".")
   normal! G$
@@ -231,6 +250,7 @@ endfunction
 """ d in visual mode
 autocmd FileType conque_term vmap <silent> <buffer> d :<C-u>call <SID>EraceSelectedCharsInConque()<CR>
 function! s:EraceSelectedCharsInConque()
+  call <SID>RedrawCommandLineInConque()
   normal! `<
   let head = getpos(".")
   normal! `>
@@ -241,15 +261,13 @@ endfunction
 "" To paste chars from normal mode in conque(only in Linux)
 autocmd FileType conque_term nnoremap <expr> <silent> <buffer> P ':<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>:py '
       \ . b:ConqueTerm_Var . '.write_expr("@@")<CR>:let b:insert_pos = getpos(".")<CR>'
+      \ . ':<C-u>call <SID>RedrawCommandLineInConque()<CR>'
 autocmd FileType conque_term nnoremap <expr> <silent> <buffer> p 'l:<C-u>call <SID>MoveInsertCursor(getpos("."))<CR>:py '
       \ . b:ConqueTerm_Var . '.write_expr("@@")<CR>:let b:insert_pos = getpos(".")<CR>'
+      \ . ':<C-u>call <SID>RedrawCommandLineInConque()<CR>'
 
 "" Show matching brace in conque for Lisp
 autocmd FileType conque_term setl showmatch
-
-"" Command to redraw Eus command line in conque
-autocmd FileType conque_term imap <F5> <Up><Down>
-autocmd FileType conque_term nmap <F5> i<Up><Down><Esc>
 
 " Settings for C/C++
 autocmd FileType c,cpp setl cindent
