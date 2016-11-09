@@ -149,7 +149,9 @@ ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/ros_crane
 #export ROS_MASTER_URI=http://xxx.xxx.x.xxx:11311
 #export ROS_HOSTNAME=xxx.xxx.x.xxx
 source `rospack find jsk_tools`/src/bashrc.ros
-rossetip
+rossetip  # Set ROS_IP and ROS_HOSTNAME
+rosdefault  # Set ROS_MASTER_URI
+## See doc of jsk_tools for more detail
 
 # disable hardware acceleration about Mesa graphics drivers
 # to run RViz and Gazebo
