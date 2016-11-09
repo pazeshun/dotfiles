@@ -135,13 +135,8 @@ bind -x '"\ep": percol-rostopic-search'
 export TERM=xterm-256color
 
 # ROS setup
-export TURTLEBOT_3D_SENSOR=kinect
 #source /opt/ros/indigo/setup.bash
-#source ~/catkin_ws/devel/setup.bash
-#source ~/catkin_build_ws/devel/setup.bash
-source ~/apc2016/apc_ws/devel/setup.bash
-PATH=$PATH:~/ros_crane
-ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/ros_crane
+source ~/ros/jsk_apc_ws/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
@@ -155,6 +150,7 @@ rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
 
-# disable hardware acceleration about Mesa graphics drivers
-# to run RViz and Gazebo
-#export LIBGL_ALWAYS_SOFTWARE=1
+# CUDA
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH

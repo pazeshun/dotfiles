@@ -13,9 +13,9 @@ sudo apt-get install clang-format-3.6
 sudo apt-get install rlwrap
 
 # Install python tools
-sudo apt-get install python-pip
-sudo pip install pip --upgrade
-sudo pip install percol
+#sudo apt-get install python-pip
+#sudo pip install pip --upgrade
+#sudo pip install percol
 
 # Install ROS
 . ${INSTALL_DIRECTORY}/install_ros.sh
