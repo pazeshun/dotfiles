@@ -142,6 +142,7 @@ export TURTLEBOT_3D_SENSOR=kinect
 source ~/apc2016/apc_ws/devel/setup.bash
 PATH=$PATH:~/ros_crane
 ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/ros_crane
+echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
 # ROS IP setup
