@@ -48,6 +48,12 @@ Plug 'https://github.com/pazeshun/conque.vim.git', { 'branch': 'pazeshun' }
 Plug 'https://github.com/tpope/vim-fugitive.git'
 "" lightline.vim
 Plug 'https://github.com/itchyny/lightline.vim.git'
+"" vimproc.vim
+Plug 'https://github.com/Shougo/vimproc.vim.git', {'do' : 'make'}
+"" vim_goshrepl
+Plug 'https://github.com/aharisu/vim_goshrepl.git'
+"" AnsiEsc.vim
+Plug 'https://github.com/vim-scripts/AnsiEsc.vim.git'
 call plug#end()
 
 " Color scheme
@@ -88,6 +94,52 @@ let g:lightline ={
 let g:clang_format#command = "clang-format-3.6"
 let g:clang_format#detect_style_file = 1
 autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
+
+" Settings for vim_goshrepl
+"" roseus
+function! Open_roseus(...)
+  if a:0 == 0
+    let l:proc = 'roseus'
+  else
+    let l:proc = 'roseus ' . a:1
+  endif
+  call ieie#open_interactive({
+        \ 'caption'  : 'roseus',
+        \ 'filetype' : 'lisp',
+        \ 'buffer-open' : ':rightbelow split',
+        \ 'proc'     : l:proc,
+        \ 'pty'      : 1,
+        \})
+  "" Unmap <C-p> and <C-n> in insert mode
+  iunmap <buffer><silent> <C-p>
+  iunmap <buffer><silent> <C-n>
+  "" Display ANSI color
+  AnsiEsc
+endfunction
+command! -nargs=? Roseus :call Open_roseus(<f-args>)
+command! -nargs=0 RoseusThis :call Open_roseus(expand("%"))
+vmap <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
+"" python
+function! Open_python(...)
+  if a:0 == 0
+    let l:proc = 'python'
+  else
+    let l:proc = 'python -i ' . a:1
+  endif
+  call ieie#open_interactive({
+        \ 'caption'  : 'python',
+        \ 'filetype' : 'python',
+        \ 'buffer-open' : ':rightbelow split',
+        \ 'proc'     : l:proc,
+        \ 'pty'      : 1,
+        \})
+  "" Unmap <C-p> and <C-n> in insert mode
+  iunmap <buffer><silent> <C-p>
+  iunmap <buffer><silent> <C-n>
+endfunction
+command! -nargs=? Python :call Open_python(<f-args>)
+command! -nargs=0 PythonThis :call Open_python(expand("%"))
+vmap <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
 
 " Settings for conque.vim
 let g:ConqueTerm_Color = 2
