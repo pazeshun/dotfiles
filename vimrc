@@ -117,7 +117,7 @@ function! Open_roseus(...)
   AnsiEsc
 endfunction
 command! -nargs=? Roseus :call Open_roseus(<f-args>)
-command! -nargs=0 RoseusThis :call Open_roseus(expand("%"))
+command! -nargs=0 RoseusThis :call Open_roseus(expand("%:p"))
 vmap <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
 "" python
 function! Open_python(...)
@@ -138,7 +138,7 @@ function! Open_python(...)
   iunmap <buffer><silent> <C-n>
 endfunction
 command! -nargs=? Python :call Open_python(<f-args>)
-command! -nargs=0 PythonThis :call Open_python(expand("%"))
+command! -nargs=0 PythonThis :call Open_python(expand("%:p"))
 vmap <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
 
 " Settings for conque.vim
