@@ -118,7 +118,7 @@ function! Open_roseus(...)
 endfunction
 command! -nargs=? Roseus :call Open_roseus(<f-args>)
 command! -nargs=0 RoseusThis :call Open_roseus(expand("%:p"))
-vmap <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
+autocmd FileType lisp vmap <buffer> <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
 "" python
 function! Open_python(...)
   if a:0 == 0
@@ -139,7 +139,7 @@ function! Open_python(...)
 endfunction
 command! -nargs=? Python :call Open_python(<f-args>)
 command! -nargs=0 PythonThis :call Open_python(expand("%:p"))
-vmap <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
+autocmd FileType python vmap <buffer> <F9> :call ieie#send_text_block(function('Open_python'), 'python')<CR>
 
 " Settings for conque.vim
 let g:ConqueTerm_Color = 2
