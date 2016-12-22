@@ -117,6 +117,9 @@ function! Open_roseus(...)
   "" Unmap <C-p> and <C-n> in insert mode
   iunmap <buffer><silent> <C-p>
   iunmap <buffer><silent> <C-n>
+  "" Map <Up> and <Down> to searching history in insert mode
+  imap <buffer><silent> <Up> <Plug>(ieie_line_replace_history_prev)
+  imap <buffer><silent> <Down> <Plug>(ieie_line_replace_history_next)
   "" Map <C-c> in insert and normal mode
   nnoremap <buffer><silent> <C-c> :call <SID>SendCtrlCToREPL()<CR>
   inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
@@ -143,6 +146,9 @@ function! Open_python(...)
   "" Unmap <C-p> and <C-n> in insert mode
   iunmap <buffer><silent> <C-p>
   iunmap <buffer><silent> <C-n>
+  "" Map <Up> and <Down> to searching history in insert mode
+  imap <buffer><silent> <Up> <Plug>(ieie_line_replace_history_prev)
+  imap <buffer><silent> <Down> <Plug>(ieie_line_replace_history_next)
   "" Map <C-c> in insert and normal mode
   nnoremap <buffer><silent> <C-c> :call <SID>SendCtrlCToREPL()<CR>
   inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
