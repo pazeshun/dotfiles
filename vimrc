@@ -96,6 +96,10 @@ let g:clang_format#detect_style_file = 1
 autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 
 " Settings for vim_goshrepl
+"" Common function
+function! s:SendCtrlCToREPL()
+  call ieie#execute("\<C-c>", bufnr("%"), 0)
+endfunction
 "" roseus
 function! Open_roseus(...)
   if a:0 == 0
@@ -113,6 +117,9 @@ function! Open_roseus(...)
   "" Unmap <C-p> and <C-n> in insert mode
   iunmap <buffer><silent> <C-p>
   iunmap <buffer><silent> <C-n>
+  "" Map <C-c> in insert and normal mode
+  nnoremap <buffer><silent> <C-c> :call <SID>SendCtrlCToREPL()<CR>
+  inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
   "" Display ANSI color
   AnsiEsc
 endfunction
@@ -136,6 +143,9 @@ function! Open_python(...)
   "" Unmap <C-p> and <C-n> in insert mode
   iunmap <buffer><silent> <C-p>
   iunmap <buffer><silent> <C-n>
+  "" Map <C-c> in insert and normal mode
+  nnoremap <buffer><silent> <C-c> :call <SID>SendCtrlCToREPL()<CR>
+  inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
 endfunction
 command! -nargs=? Python :call Open_python(<f-args>)
 command! -nargs=0 PythonThis :call Open_python(expand("%:p"))
