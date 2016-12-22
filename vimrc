@@ -126,7 +126,7 @@ function! Open_roseus(...)
   "" Display ANSI color
   AnsiEsc
 endfunction
-command! -nargs=? Roseus :call Open_roseus(<f-args>)
+command! -nargs=? -complete=file Roseus :call Open_roseus(<f-args>)
 command! -nargs=0 RoseusThis :call Open_roseus(expand("%:p"))
 autocmd FileType lisp vmap <buffer> <F9> :call ieie#send_text_block(function('Open_roseus'), 'roseus')<CR>
 "" python
@@ -153,7 +153,7 @@ function! Open_python(...)
   nnoremap <buffer><silent> <C-c> :call <SID>SendCtrlCToREPL()<CR>
   inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
 endfunction
-command! -nargs=? Python :call Open_python(<f-args>)
+command! -nargs=? -complete=file Python :call Open_python(<f-args>)
 command! -nargs=0 PythonThis :call Open_python(expand("%:p"))
 autocmd FileType python vmap <buffer> <F9> :call ieie#send_text_block(function('Open_python'), 'python')<CR>
 
