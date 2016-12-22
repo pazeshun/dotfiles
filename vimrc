@@ -17,6 +17,8 @@ set number
 set incsearch
 nnoremap <F4> :set hlsearch!<CR>
 set whichwrap=<,>,[,]
+set wildmenu
+set wildmode=list:longest,full
 
 " Visualize tab and white space of EOL
 set list
