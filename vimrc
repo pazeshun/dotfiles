@@ -32,6 +32,9 @@ endif
 " Netrw setting
 let g:netrw_keepdir = 0
 
+" DeleteAnsiEsc command
+command! -range DeleteAnsiEsc :<line1>,<line2>s/\e\[\d\{1,3}[mK]//g
+
 " Plugins managed by vim-plug
 call plug#begin('~/.vim/plugged')
 "" vim-ros
@@ -127,6 +130,7 @@ function! Open_roseus(...)
   inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
   "" Display ANSI color
   AnsiEsc
+  setl concealcursor+=ic
 endfunction
 command! -nargs=? -complete=file Roseus :call Open_roseus(<f-args>)
 command! -nargs=0 RoseusThis :call Open_roseus(expand("%:p"))
