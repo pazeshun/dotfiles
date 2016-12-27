@@ -59,6 +59,8 @@ Plug 'https://github.com/Shougo/vimproc.vim.git', {'do' : 'make'}
 Plug 'https://github.com/aharisu/vim_goshrepl.git'
 "" AnsiEsc.vim
 Plug 'https://github.com/pazeshun/AnsiEsc.vim.git'
+"" vim-fakeclip
+Plug 'https://github.com/kana/vim-fakeclip.git'
 call plug#end()
 
 " Color scheme
