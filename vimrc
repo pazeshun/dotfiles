@@ -61,6 +61,8 @@ Plug 'https://github.com/aharisu/vim_goshrepl.git'
 Plug 'https://github.com/pazeshun/AnsiEsc.vim.git'
 "" vim-fakeclip
 Plug 'https://github.com/kana/vim-fakeclip.git'
+"" im_control.vim
+Plug 'https://github.com/fuenor/im_control.vim.git'
 call plug#end()
 
 " Color scheme
@@ -164,6 +166,12 @@ endfunction
 command! -nargs=? -complete=file Python :call Open_python(<f-args>)
 command! -nargs=0 PythonThis :call Open_python(expand("%:p"))
 autocmd FileType python vmap <buffer> <F9> :call ieie#send_text_block(function('Open_python'), 'python')<CR>
+
+" Settings for im_control.vim
+"" For fcitx
+let IM_CtrlMode = 6
+"" Mapping for fixing IME in insert mode
+"inoremap <silent> <C-j> <C-r>=IMState('FixMode')<CR>
 
 " Settings for conque.vim
 let g:ConqueTerm_Color = 2
