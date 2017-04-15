@@ -109,6 +109,45 @@ autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 function! s:SendCtrlCToREPL()
   call ieie#execute("\<C-c>", bufnr("%"), 0)
 endfunction
+function! s:HistoryBeginningSearch(prev)
+  let ctx = ieie#get_context(bufnr("%"))
+  let lines_len = len(ctx["lines"])
+  if lines_len == 0
+    return
+  endif
+  let beginning = getline(line("."))[len(ieie#get_prompt(ctx, line("."))):col(".")-1]
+  if beginning == ""
+    return
+  endif
+  let his_index = ctx["input-history-index"]
+  let i = 0
+  while i < lines_len
+    let his_index = his_index + (((a:prev == 1)?1 : -1))
+    if his_index < 0
+      let his_index = lines_len
+    endif
+    if his_index > 0
+      if his_index <= lines_len
+        if match(ctx["lines"][-his_index], beginning) == 0
+          let l:text = ctx["lines"][-his_index]
+          break
+        endif
+      else
+        let his_index = 0
+      endif
+    endif
+    if his_index == 0
+      let l:text = beginning
+      break
+    endif
+    let i = i + 1
+  endwhile
+  if exists("text")
+    let line_num = line(".")
+    call setline(line_num,(ieie#get_prompt(ctx,line_num)) . l:text)
+    let ctx["input-history-index"] = his_index
+  endif
+endfunction
 "" roseus
 function! Open_roseus(...)
   if a:0 == 0
@@ -132,6 +171,9 @@ function! Open_roseus(...)
   "" Map <C-c> in insert and normal mode
   nnoremap <buffer><silent> <C-c> :call <SID>SendCtrlCToREPL()<CR>
   inoremap <buffer><silent> <C-c> <C-o>:call <SID>SendCtrlCToREPL()<CR>
+  "" Map <C-f> and <C-b> in insert mode
+  inoremap <buffer><silent> <C-f> <Esc>:call <SID>HistoryBeginningSearch(1)<CR>a
+  inoremap <buffer><silent> <C-b> <Esc>:call <SID>HistoryBeginningSearch(0)<CR>a
   "" Display ANSI color
   AnsiEsc
   setl concealcursor+=ic
