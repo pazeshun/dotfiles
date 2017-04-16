@@ -148,6 +148,25 @@ function! s:HistoryBeginningSearch(prev)
     let ctx["input-history-index"] = his_index
   endif
 endfunction
+function! s:LoadHistFile()
+  let ctx = ieie#get_context(bufnr("%"))
+  if filereadable(b:histfile)
+    let b:loaded_hist = readfile(b:histfile)
+    let ctx["lines"] = deepcopy(b:loaded_hist)
+  endif
+endfunction
+function! AddHistToFile(ctx)
+  if filereadable(b:histfile) && filewritable(b:histfile)
+    let new_hist = a:ctx["lines"][len(b:loaded_hist):]
+    let old_hist = []
+    if len(new_hist) < b:histfilesize
+      let old_hist = readfile(b:histfile, "", len(new_hist)-b:histfilesize)
+    else
+      let new_hist = new_hist[(-b:histfilesize):]
+    endif
+    call writefile(old_hist+new_hist, b:histfile)
+  endif
+endfunction
 "" roseus
 function! Open_roseus(...)
   if a:0 == 0
@@ -161,7 +180,11 @@ function! Open_roseus(...)
         \ 'buffer-open' : ':rightbelow split',
         \ 'proc'     : l:proc,
         \ 'pty'      : 1,
+        \ 'exit-callback' : function('AddHistToFile'),
         \})
+  let b:histfile = expand("~/.roseus_history")
+  let b:histfilesize = 300
+  call <SID>LoadHistFile()
   "" Unmap <C-p> and <C-n> in insert mode
   iunmap <buffer><silent> <C-p>
   iunmap <buffer><silent> <C-n>
