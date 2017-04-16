@@ -128,7 +128,7 @@ function! s:HistoryBeginningSearch(prev)
     endif
     if his_index > 0
       if his_index <= lines_len
-        if match(ctx["lines"][-his_index], beginning) == 0
+        if stridx(ctx["lines"][-his_index], beginning) == 0
           let l:text = ctx["lines"][-his_index]
           break
         endif
