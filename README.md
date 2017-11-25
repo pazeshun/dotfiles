@@ -8,6 +8,7 @@ These are dotfiles for below utils.
 - vim
 - emacs
 - clang-format
+- tmux
 
 ## Installation
 

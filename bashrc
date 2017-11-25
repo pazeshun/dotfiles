@@ -123,13 +123,13 @@ percol-history-search() {
 bind -x '"\C-r": percol-history-search'
 ## Ctrl-xr: reverse-search-history (originally at Ctrl-r)
 bind    '"\C-xr": reverse-search-history'
-## Ctrl-t: percol rostopic search
+## Esc-p: percol rostopic search
 percol-rostopic-search() {
   local l=$(rostopic list | percol)
   READLINE_LINE="$READLINE_LINE$l"
   READLINE_POINT=${#READLINE_LINE}
 }
-bind -x '"\C-t": percol-rostopic-search'
+bind -x '"\ep": percol-rostopic-search'
 
 # Change to Xterm 256color mode for VIM
 export TERM=xterm-256color

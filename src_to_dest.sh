@@ -9,4 +9,5 @@ src_to_dest=(
 "emacs.d .emacs.d"
 "roscpp_code_format/.clang-format .clang-format"
 "percol.d .percol.d"
+"tmux.conf .tmux.conf"
 )
