@@ -134,22 +134,24 @@ bind -x '"\ep": percol-rostopic-search'
 # Change to Xterm 256color mode for VIM
 export TERM=xterm-256color
 
-# ROS setup
-#source /opt/ros/indigo/setup.bash
-#source ~/catkin_ws/devel/setup.bash
-source ~/apc_ws/devel/setup.bash
-echo "ROS_DISTRO: $ROS_DISTRO"
-echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
+setup-ros() {
+  # ROS setup
+  #source /opt/ros/indigo/setup.bash
+  #source ~/catkin_ws/devel/setup.bash
+  source ~/apc_ws/devel/setup.bash
+  echo "ROS_DISTRO: $ROS_DISTRO"
+  echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
-# ROS IP setup
-#export ROS_MASTER_URI=http://localhost:11311
-#export ROS_HOSTNAME=localhost
-#export ROS_MASTER_URI=http://xxx.xxx.x.xxx:11311
-#export ROS_HOSTNAME=xxx.xxx.x.xxx
-source `rospack find jsk_tools`/src/bashrc.ros
-rossetip  # Set ROS_IP and ROS_HOSTNAME
-rosdefault  # Set ROS_MASTER_URI
-## See doc of jsk_tools for more detail
+  # ROS IP setup
+  #export ROS_MASTER_URI=http://localhost:11311
+  #export ROS_HOSTNAME=localhost
+  #export ROS_MASTER_URI=http://xxx.xxx.x.xxx:11311
+  #export ROS_HOSTNAME=xxx.xxx.x.xxx
+  source `rospack find jsk_tools`/src/bashrc.ros
+  rossetip  # Set ROS_IP and ROS_HOSTNAME
+  rosdefault  # Set ROS_MASTER_URI
+  ## See doc of jsk_tools for more detail
+}
 
 # CUDA
 export CUDA_HOME=/usr/local/cuda
