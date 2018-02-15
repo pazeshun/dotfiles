@@ -153,6 +153,23 @@ setup-ros() {
   ## See doc of jsk_tools for more detail
 }
 
+setup-ros-mvtk() {
+  source ~/ros_mvtk/devel/setup.bash
+  echo "ROS_DISTRO: $ROS_DISTRO"
+  echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
+
+  source `rospack find jsk_tools`/src/bashrc.ros
+  rossetip  # Set ROS_IP and ROS_HOSTNAME
+  rosdefault  # Set ROS_MASTER_URI
+}
+
+setup-mvtk() {
+  source ~/mvtk/.anaconda/bin/activate
+}
+
+# For cuda-smi
+export PATH=$HOME/.local/bin:$PATH
+
 # CUDA
 export CUDA_HOME=/usr/local/cuda
 export PATH=$CUDA_HOME/bin:$PATH
