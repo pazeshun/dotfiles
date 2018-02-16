@@ -136,7 +136,8 @@ export TERM=xterm-256color
 
 # ROS setup
 #source /opt/ros/indigo/setup.bash
-source ~/ros/jsk_apc_ws/devel/setup.bash
+#source ~/ros/jsk_apc_ws/devel/setup.bash
+source ~/ros_mvtk/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
