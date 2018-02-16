@@ -139,7 +139,8 @@ export TERM=xterm-256color
 
 # ROS setup
 #source /opt/ros/kinetic/setup.bash
-source ~/ros/ws_jsk_apc/devel/setup.bash
+#source ~/ros/ws_jsk_apc/devel/setup.bash
+source ~/ros_mvtk/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
