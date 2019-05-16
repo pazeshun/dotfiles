@@ -100,7 +100,7 @@ let g:lightline ={
       \ }
 
 " Settings for vim-clang-format
-let g:clang_format#command = "clang-format-3.6"
+"let g:clang_format#command = "clang-format-3.6"
 let g:clang_format#detect_style_file = 1
 autocmd FileType c,cpp map <buffer> = <Plug>(operator-clang-format)
 
