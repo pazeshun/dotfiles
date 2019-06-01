@@ -160,3 +160,6 @@ export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
 export LD_LIBRARY_PATH=~/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH
 export CPATH=~/.cudnn/active/cuda/include:$CPATH
 export LIBRARY_PATH=~/.cudnn/active/cuda/lib64:$LIBRARY_PATH
+
+# Use vim in 'git rebase -i'
+export EDITOR=vim
