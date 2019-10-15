@@ -138,13 +138,8 @@ bind -x '"\ep": percol-rostopic-search'
 export TERM=xterm-256color
 
 # ROS setup
-export TURTLEBOT_3D_SENSOR=kinect
 #source /opt/ros/indigo/setup.bash
-#source ~/catkin_ws/devel/setup.bash
-#source ~/catkin_build_ws/devel/setup.bash
-source ~/apc2016/apc_ws/devel/setup.bash
-PATH=$PATH:~/ros_crane
-ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:~/ros_crane
+source ~/ros/ws_jsk_apc/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
