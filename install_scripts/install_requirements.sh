@@ -7,7 +7,7 @@ INSTALL_DIRECTORY=$(cd $(dirname $0) && pwd)
 . ${INSTALL_DIRECTORY}/install_submodules.sh
 
 # Install clang-format
-sudo apt install clang-format-3.6
+sudo apt install clang-format
 
 # Install rlwrap
 sudo apt install rlwrap
