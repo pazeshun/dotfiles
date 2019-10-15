@@ -153,7 +153,6 @@ echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 #export ROS_HOSTNAME=localhost
 #export ROS_MASTER_URI=http://xxx.xxx.x.xxx:11311
 #export ROS_HOSTNAME=xxx.xxx.x.xxx
-source `rospack find jsk_tools`/src/bashrc.ros
 rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
