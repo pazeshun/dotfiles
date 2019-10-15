@@ -11,14 +11,14 @@ case $ans in
       echo -n "Which release of ROS do you want to install? : "
       read distro
       # ROS Installation
-      sudo apt-get update
-      sudo apt-get install ros-${distro}-desktop-full
-      sudo apt-get install ros-${distro}-jsk-tools
+      sudo apt update
+      sudo apt install ros-${distro}-desktop-full
+      sudo apt install ros-${distro}-jsk-tools
       # Initialize rosdep
       sudo rosdep init
       rosdep update
       # Get rosinstall
-      sudo apt-get install python-rosinstall
+      sudo apt install python-rosinstall
     else
       echo "Please setup sources.list and keys about ROS first"
     fi ;;

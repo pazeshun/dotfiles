@@ -22,7 +22,7 @@ If you use vim first on that PC, don't forget `:PlugInstall` to install plugins.
 If you use Ubuntu 16.04, you get an error in vim-ros as it depends on python2.
 To avoid this error, use `vim-nox-py2`.
 ```sh
-$ sudo apt-get install vim-nox-py2
+$ sudo apt install vim-nox-py2
 ```
 The detail is on https://github.com/taketwo/vim-ros#installation
 
