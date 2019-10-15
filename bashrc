@@ -140,9 +140,11 @@ export TERM=xterm-256color
 # ROS setup
 #source /opt/ros/kinetic/setup.bash
 #source ~/ros/ws_jsk_apc/devel/setup.bash
-source ~/ros_mvtk/devel/setup.bash
+#source ~/ros_mvtk/devel/setup.bash
+source ~/ros/ws_roseus_resume/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
+echo "EUSDIR: $EUSDIR"
 
 # ROS IP setup
 #export ROS_MASTER_URI=http://localhost:11311
