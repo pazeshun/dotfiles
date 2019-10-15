@@ -17,8 +17,8 @@ case $ans in
       # Initialize rosdep
       sudo rosdep init
       rosdep update
-      # Get rosinstall
-      sudo apt install python-rosinstall
+      # Get rosinstall and wstool
+      sudo apt install python-rosinstall python-rosinstall-generator python-wstool
     else
       echo "Please setup sources.list and keys about ROS first"
     fi ;;
