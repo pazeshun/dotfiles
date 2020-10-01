@@ -139,7 +139,7 @@ export TERM=xterm-256color
 
 # ROS setup
 #source /opt/ros/kinetic/setup.bash
-source ~/ros/ws_jsk_apc/devel/setup.bash
+source ~/hiro_ws/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
@@ -149,9 +149,14 @@ echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 #export ROS_MASTER_URI=http://xxx.xxx.x.xxx:11311
 #export ROS_HOSTNAME=xxx.xxx.x.xxx
 rossetip  # Set ROS_IP and ROS_HOSTNAME
-rosdefault  # Set ROS_MASTER_URI
+rossetmaster hirovision  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
 
-# disable hardware acceleration about Mesa graphics drivers
-# to run RViz and Gazebo
-#export LIBGL_ALWAYS_SOFTWARE=1
+# CUDA
+export CUDA_HOME=/usr/local/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+# cuDNN installed by cudnnenv
+export LD_LIBRARY_PATH=~/.cudnn/active/cuda/lib64:$LD_LIBRARY_PATH
+export CPATH=~/.cudnn/active/cuda/include:$CPATH
+export LIBRARY_PATH=~/.cudnn/active/cuda/lib64:$LIBRARY_PATH
