@@ -153,3 +153,6 @@ setup-ros() {
   rosdefault  # Set ROS_MASTER_URI
   ## See doc of jsk_tools for more detail
 }
+
+# For cuda-smi
+export PATH=$HOME/.local/bin:$PATH
