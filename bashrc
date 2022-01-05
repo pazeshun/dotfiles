@@ -156,3 +156,6 @@ echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
+
+# Use vim in 'git rebase -i'
+export EDITOR=vim
