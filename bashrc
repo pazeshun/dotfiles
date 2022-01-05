@@ -137,9 +137,14 @@ bind -x '"\ep": percol-rostopic-search'
 # Change to Xterm 256color mode for VIM
 export TERM=xterm-256color
 
+# CUDA
+## https://docs.nvidia.com/cuda/archive/10.2/cuda-quick-start-guide/index.html#ubuntu-x86_64-deb
+export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 # ROS setup
 #source /opt/ros/melodic/setup.bash
-source ~/ros/ws_jsk_apc/devel/setup.bash
+source ~/hasegawa_moonshot_ws/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 
@@ -151,7 +156,3 @@ echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
-
-# disable hardware acceleration about Mesa graphics drivers
-# to run RViz and Gazebo
-#export LIBGL_ALWAYS_SOFTWARE=1
