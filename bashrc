@@ -154,3 +154,6 @@ rossetmaster hirovision  # Set ROS_MASTER_URI
 
 # Use vim in 'git rebase -i'
 export EDITOR=vim
+
+# For gdown
+export PATH=$HOME/.local/bin:$PATH
