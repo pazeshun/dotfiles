@@ -138,7 +138,7 @@ bind -x '"\ep": percol-rostopic-search'
 export TERM=xterm-256color
 
 # ROS setup
-#source /opt/ros/melodic/setup.bash
+#source /opt/ros/noetic/setup.bash
 source ~/ros/ws_jsk_apc/devel/setup.bash
 echo "ROS_DISTRO: $ROS_DISTRO"
 echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
