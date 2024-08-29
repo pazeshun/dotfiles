@@ -152,6 +152,8 @@ rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
 
-# disable hardware acceleration about Mesa graphics drivers
+# disable hardware acceleration about Mesa graphics drivers on WSL
 # to run RViz and Gazebo
-#export LIBGL_ALWAYS_SOFTWARE=1
+if [[ "$(uname -r)" == *microsoft* ]]; then
+  export LIBGL_ALWAYS_SOFTWARE=1
+fi
