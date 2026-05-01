@@ -148,3 +148,10 @@ export TERM=xterm-256color
 if [[ "$(uname -r)" == *microsoft* ]]; then
   export LIBGL_ALWAYS_SOFTWARE=1
 fi
+
+# npm setup for Codex CLI
+# See https://zenn.dev/givery_ai_lab/articles/69c3534a142b8b#2.-codex-cli%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A8%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB
+export PATH=$HOME/.npm-global/bin:$PATH
+
+# Claude Code setup
+export PATH="$HOME/.local/bin:$PATH"
