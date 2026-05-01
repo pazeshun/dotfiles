@@ -151,3 +151,15 @@ echo "CMAKE_PREFIX_PATH: $CMAKE_PREFIX_PATH"
 rossetip  # Set ROS_IP and ROS_HOSTNAME
 rosdefault  # Set ROS_MASTER_URI
 ## See doc of jsk_tools for more detail
+
+# nvm setup for Codex CLI
+## Codex CLI requires node>=16 but apt-version node is 10.19.0 on Ubuntu 20.04, so the following procedure does not work:
+## https://zenn.dev/givery_ai_lab/articles/69c3534a142b8b#2.-codex-cli%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A8%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB
+## Instead of changing system area, install nvm to user area and install node 16.0.0 under nvm.
+## npm installed under nvm becomes used, so "npm install -g" comes to work without sudo and install target package under nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Claude Code setup
+export PATH="$HOME/.local/bin:$PATH"
