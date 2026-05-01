@@ -116,23 +116,29 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# percol settings
-## Ctrl-r: percol command history search
-percol-history-search() {
-  local l=$(HISTTIMEFORMAT= history | tac | sed -e 's/^\s*[0-9]\+\s\+//' | percol --query "$READLINE_LINE")
-  READLINE_LINE="$l"
-  READLINE_POINT=${#l}
-}
-bind -x '"\C-r": percol-history-search'
-## Ctrl-xr: reverse-search-history (originally at Ctrl-r)
-bind    '"\C-xr": reverse-search-history'
-## Esc-p: percol rostopic search
-percol-rostopic-search() {
-  local l=$(rostopic list | percol)
-  READLINE_LINE="$READLINE_LINE$l"
-  READLINE_POINT=${#READLINE_LINE}
-}
-bind -x '"\ep": percol-rostopic-search'
+# percol settings only when tty is accessible (this is not guaranteed when login with su command)
+if tty -s; then
+  __tty="$(tty)"
+  if [ -r "$__tty" ] && [ -w "$__tty" ]; then
+    ## Ctrl-r: percol command history search
+    percol-history-search() {
+      local l=$(HISTTIMEFORMAT= history | tac | sed -e 's/^\s*[0-9]\+\s\+//' | percol --query "$READLINE_LINE")
+      READLINE_LINE="$l"
+      READLINE_POINT=${#l}
+    }
+    bind -x '"\C-r": percol-history-search'
+    ## Ctrl-xr: reverse-search-history (originally at Ctrl-r)
+    bind    '"\C-xr": reverse-search-history'
+    ## Esc-p: percol rostopic search
+    percol-rostopic-search() {
+      local l=$(rostopic list | percol)
+      READLINE_LINE="$READLINE_LINE$l"
+      READLINE_POINT=${#READLINE_LINE}
+    }
+    bind -x '"\ep": percol-rostopic-search'
+  fi
+  unset __tty
+fi
 
 # Change to Xterm 256color mode for VIM
 export TERM=xterm-256color
