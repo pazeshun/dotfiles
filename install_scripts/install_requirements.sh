@@ -20,11 +20,15 @@ then
   sudo apt install python-pip
   sudo pip install pip --upgrade
   sudo pip install percol
-else
+elif [[ ${OS_VER} == "20.04" ]]
+then
   sudo apt install python-is-python3
   sudo apt install python3-pip
   sudo pip3 install pip --upgrade
   sudo pip3 install percol
+else
+  sudo apt install python3-pip
+  sudo pip3 install percol --break-system-packages
 fi
 
 # Install xclip for vim-fakeclip

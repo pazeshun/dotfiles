@@ -67,7 +67,7 @@ call plug#end()
 
 " Color scheme
 syntax on
-colorscheme peachpuff
+colorscheme default
 
 " diff settings
 set diffopt+=vertical
